@@ -92,32 +92,36 @@ class Search extends Component {
         super(props)
         this.state = {
             text: '',
-            data:''
+            data: ''
         }
+        this.back = this.back.bind(this)
     }
 
-    filter(text){
-        const newData = show_first.filter(function(item){
+    filter(text) {
+        const newData = show_first.filter(function (item) {
             const itemData = item.name.toUpperCase()
             const textData = text.toUpperCase()
-                return itemData.indexOf(textData) > -1
-            
+            return itemData.indexOf(textData) > -1
+
         })
         this.setState({
-            data: newData , 
+            data: newData,
             text: text,
         })
     }
 
-    deletData(){
+    deletData() {
         this.setState({
-            text:'',
-            data:''
+            text: '',
+            data: ''
         })
     }
-    _renderItem(item){
-        return(
-            <Image key={item.key} style={styles.image} source={{uri:item.image}}/>
+    back(){
+        this.props.navigation.navigate('home')
+    }
+    _renderItem(item) {
+        return (
+            <Image key={item.key} style={styles.image} source={{ uri: item.image }} />
         )
     }
 
@@ -138,32 +142,32 @@ class Search extends Component {
                         autoFocus={true}
                     />
                     {this.state.text ?
-                      <TouchableWithoutFeedback onPress={ () => this.deletData()}>
+                        <TouchableWithoutFeedback onPress={() => this.deletData()}>
                             <Icon
-                            name='times-circle'
-                            color='gray'
-                            size={18}
-                            style={styles.iconIputClose}
-                            
-                        />
-                      </TouchableWithoutFeedback>
+                                name='times-circle'
+                                color='gray'
+                                size={18}
+                                style={styles.iconIputClose}
+
+                            />
+                        </TouchableWithoutFeedback>
                         : null}
-                    <TouchableWithoutFeedback style={styles.cancelButton}>
+                    <TouchableWithoutFeedback onPress={() => this.back()} style={styles.cancelButton}>
                         <View style={styles.containerButton}>
                             <Text style={styles.cancelText}>Cancel</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
-                <ScrollView>
-                    <FlatList style={styles.flatList}
-                    data={this.state.data}
-                    renderItem={({item}) => this._renderItem(item)}
-                    numColumns={3}
-                    columnWrapperStyle={{marginTop:5, marginLeft:5}}
-                    >
 
-                    </FlatList >
-                </ScrollView>
+                <FlatList style={{ marginHorizontal: 5 }}
+                    data={this.state.data}
+                    renderItem={({ item }) => this._renderItem(item)}
+                    numColumns={3}
+                    columnWrapperStyle={{ marginTop: 5, marginLeft: 5 }}
+                >
+
+                </FlatList >
+
             </View>
         )
     }
@@ -217,13 +221,16 @@ const styles = StyleSheet.create({
         zIndex: 1,
         backgroundColor: 'transparent'
     },
-    flatList:{
+    flatList: {
         marginHorizontal: 5,
     },
-    image:{
+    image: {
         marginRight: 5,
         width: 115,
         height: 170
+    },
+    scrollContainer: {
+        width: width / 2 + 50
     },
 
 })

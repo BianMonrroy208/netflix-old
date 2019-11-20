@@ -31,7 +31,7 @@ class Menu extends Component {
                         size={25}
                     />
                 </View>
-                <ScrollView style={styles.scrollContainer}>
+                <ScrollView >
                     <View style={styles.textWithIcon}>
                         <View style={styles.withIcon}>
                             <Icon
